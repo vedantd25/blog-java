@@ -1,42 +1,148 @@
-#root {
-  max-width: 1280px;
+/* General Styles */
+.app-container {
+  min-height: 100vh;
+  background: #f6f7fa;
+  padding: 40px 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+.centered {
+  width: 95%; /* Adjusted width for larger screens */
+  max-width: 1200px; /* Increased max-width for larger screens */
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0 24px; /* Added padding for smaller screens */
+}
+.heading {
   text-align: center;
+  font-size: 3rem; /* Larger font size for better visibility */
+  margin-bottom: 16px;
+  font-weight: bold;
 }
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
+.subheading {
   color: #888;
+  text-align: center;
+  margin-bottom: 40px;
+}
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+  padding: 36px 32px; /* Increased padding for larger screens */
+  margin-bottom: 40px;
+}
+.card-title {
+  font-weight: bold;
+  font-size: 1.5rem; /* Slightly larger font size */
+  margin-bottom: 16px;
+}
+.form-group {
+  margin-bottom: 20px;
+}
+.input, .textarea {
+  width: 100%;
+  padding: 14px; /* Increased padding */
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+  margin-top: 6px;
+  box-sizing: border-box;
+  background: #f9fafb;
+  transition: border 0.2s;
+}
+.input:focus, .textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+.button {
+  width: 100%;
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 14px 0; /* Adjusted padding */
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.button:disabled {
+  background: #93c5fd;
+  cursor: not-allowed;
+}
+.button:not(:disabled):hover {
+  background: #2563eb;
+}
+.posts-list {
+  margin-top: 16px;
+}
+.post-card {
+  background: #fff;
+  padding: 24px 28px; /* Adjusted padding */
+  border-radius: 8px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+  margin-bottom: 24px;
+}
+.post-title {
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 1.2rem; /* Adjusted font size */
+}
+.post-content {
+  color: #444;
+}
+.loading, .no-posts {
+  text-align: center;
+  color: #888;
+  margin: 40px 0;
+}
+.toast {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #111827;
+  color: #fff;
+  padding: 14px 32px;
+  border-radius: 6px;
+  font-weight: 500;
+  z-index: 999;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.09);
+  min-width: 280px; /* Increased minimum width */
+  text-align: center;
+  opacity: 0.96;
+  animation: fadein 0.2s;
+}
+.toast.success { background: #16a34a; }
+.toast.error { background: #dc2626; }
+.toast.warning { background: #f59e42; color: #3b2f12;}
+@keyframes fadein {
+  from { opacity: 0; top: 8px; }
+  to { opacity: 0.96; top: 24px; }
+}
+
+/* Responsive Styles */
+@media (min-width: 768px) {
+  .app-container {
+    padding: 60px 0; /* Increased padding for larger screens */
+  }
+  .centered {
+    width: 90%; /* Adjusted width for medium screens */
+    max-width: 1200px; /* Wider container */
+  }
+  .heading {
+    font-size: 3.5rem; /* Larger heading font size */
+  }
+  .card {
+    padding: 40px 36px; /* Increased padding */
+  }
+  .button {
+    font-size: 1.125rem; /* Slightly larger button font size */
+  }
+  .post-card {
+    padding: 28px 32px; /* Increased padding */
+  }
+}
+@media (min-width: 1024px) {
+  .centered {
+    max-width: 1400px; /* Wider container for larger screens */
+  }
 }
