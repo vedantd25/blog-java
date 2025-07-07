@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
+import SearchComponent from "./components/SearchComponent";
+import UpdateComponent from "./components/UpdateComponent";
+import GetComponent from "./components/GetComponent";
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -55,6 +58,33 @@ function App() {
     }
   };
 
+  const handleUpdate = async (updateData) => {
+    try {
+      const res = await fetch(`/api/posts/${updateData.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title: updateData.title, content: updateData.content }),
+      });
+      if (!res.ok) throw new Error("Failed to update post");
+      showToast("Post updated!", "success");
+      fetchPosts();
+    } catch (err) {
+      showToast("Error updating post", "error");
+    }
+  };
+
+  const handleSearch = async (query) => {
+    try {
+      const res = await fetch(`/api/posts/search?query=${query}`);
+      if (!res.ok) throw new Error("Failed to search posts");
+      const data = await res.json();
+      setPosts(data);
+      showToast("Search completed!", "success");
+    } catch (err) {
+      showToast("Error searching posts", "error");
+    }
+  };
+
   return (
     <div className="app-container">
       <div className="centered">
@@ -74,7 +104,7 @@ function App() {
                   className="input"
                   placeholder="Title"
                   value={form.title}
-                  onChange={e => setForm({ ...form, title: e.target.value })}
+                  onChange={(e) => setForm({ ...form, title: e.target.value })}
                   disabled={posting}
                 />
               </label>
@@ -86,39 +116,21 @@ function App() {
                   className="textarea"
                   placeholder="Content"
                   value={form.content}
-                  onChange={e => setForm({ ...form, content: e.target.value })}
+                  onChange={(e) => setForm({ ...form, content: e.target.value })}
                   rows={4}
                   disabled={posting}
                 />
               </label>
             </div>
-            <button
-              type="submit"
-              className="button"
-              disabled={posting}
-            >
+            <button type="submit" className="button" disabled={posting}>
               {posting ? "Posting..." : "Add Post"}
             </button>
           </form>
         </div>
-        {/* Posts List */}
-        <div className="card">
-          <div className="card-title" style={{ marginBottom: 18 }}>All Posts</div>
-          {loading ? (
-            <div className="loading">Loading...</div>
-          ) : posts.length === 0 ? (
-            <div className="no-posts">No posts yet.</div>
-          ) : (
-            <div className="posts-list">
-              {posts.map(post => (
-                <div key={post.id} className="post-card">
-                  <div className="post-title">{post.title}</div>
-                  <div className="post-content">{post.content}</div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+        {/* Search, Update, and Get Components */}
+        <SearchComponent onSearch={handleSearch} />
+        <UpdateComponent onUpdate={handleUpdate} />
+        <GetComponent posts={posts} loading={loading} />
       </div>
     </div>
   );
